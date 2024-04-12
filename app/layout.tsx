@@ -4,6 +4,7 @@ import { Theme, ThemePanel } from "@radix-ui/themes";
 import "./globals.css";
 import "@radix-ui/themes/styles.css";
 import Navbar from "./Navbar";
+import { Providers } from "./Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Theme accentColor="violet" radius="none">
-          <Navbar />
-          <main className="p-5">{children}</main>
-        </Theme>
+        <Providers>
+          <Theme accentColor="violet" radius="none">
+            <Navbar />
+            <main className="p-5">{children}</main>
+          </Theme>
+        </Providers>
       </body>
     </html>
   );

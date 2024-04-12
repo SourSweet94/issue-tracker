@@ -11,6 +11,8 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validation";
 import { z } from "zod";
+import ErrorMessage from "@/app/components/ErrorMessage";
+import Spinner from "@/app/components/Spinner";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -24,6 +26,7 @@ const NewIssuePage = () => {
     resolver: zodResolver(createIssueSchema),
   });
   const [error, setError] = useState<string>("");
+  const [loading, SetLoading] = useState<boolean>(false);
   const router = useRouter();
 
   return (
@@ -32,17 +35,17 @@ const NewIssuePage = () => {
         className="space-y-3"
         onSubmit={handleSubmit(async (data) => {
           try {
+            SetLoading(true);
             await axios.post("/api/issues", data);
             router.push("/issues");
           } catch (error) {
             setError("Unexpected error occurred");
           }
+          SetLoading(false);
         })}
       >
         <TextField.Root placeholder="Title" {...register("title")} />
-        {errors.title && (
-          <Callout.Text color="red">{errors.title.message}</Callout.Text>
-        )}
+        <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <Controller
           name="description"
           control={control}
@@ -50,11 +53,11 @@ const NewIssuePage = () => {
             <SimpleMdeReact placeholder="Description" {...field} />
           )}
         />
-        {errors.description && (
-          <Callout.Text color="red">{errors.description.message}</Callout.Text>
-        )}
+        <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
-        <Button>Submit new issue</Button>
+        <Button>
+          {loading ? "Submitting" : "Submit new issue"} {loading && <Spinner />}
+        </Button>
       </form>
       {error && (
         <Callout.Root color="red">

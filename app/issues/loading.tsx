@@ -1,12 +1,9 @@
-import prisma from "@/prisma/client";
 import { Button, Table } from "@radix-ui/themes";
 import Link from "next/link";
-import React from "react";
-import StatusBadge from "../components/StatusBadge";
+import { Skeleton } from "@nextui-org/skeleton";
 
-const IssuesPage = async () => {
-  const issues = await prisma.issue.findMany();
-  
+const IssuesLoading = () => {
+  const fakeIssues = [1, 2, 3, 4, 5];
   return (
     <div>
       <div className="pb-5">
@@ -29,19 +26,27 @@ const IssuesPage = async () => {
         </Table.Header>
 
         <Table.Body>
-          {issues.map((issue) => (
-            <Table.Row>
+          {fakeIssues.map((fakeIssue) => (
+            <Table.Row key={fakeIssue}>
               <Table.RowHeaderCell>
-                {issue.title}
+                <Skeleton className="w-3/5 rounded-lg">
+                  <div className="h-5 w-full bg-secondary"></div>
+                </Skeleton>
                 <div className="block md:hidden">
-                  <StatusBadge status={issue.status} />
+                  <Skeleton className="w-3/5 rounded-lg">
+                    <div className="h-5 w-full bg-secondary"></div>
+                  </Skeleton>
                 </div>
               </Table.RowHeaderCell>
               <Table.Cell className="hidden md:table-cell">
-                <StatusBadge status={issue.status} />
+                <Skeleton className="w-3/5 rounded-lg">
+                  <div className="h-5 w-full bg-secondary"></div>
+                </Skeleton>
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                {issue.createdAt.toLocaleDateString()}
+                <Skeleton className="w-3/5 rounded-lg">
+                  <div className="h-5 w-full bg-secondary"></div>
+                </Skeleton>
               </Table.Cell>
             </Table.Row>
           ))}
@@ -51,4 +56,4 @@ const IssuesPage = async () => {
   );
 };
 
-export default IssuesPage;
+export default IssuesLoading;
