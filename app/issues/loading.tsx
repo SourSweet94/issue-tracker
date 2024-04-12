@@ -1,16 +1,13 @@
 import { Button, Table } from "@radix-ui/themes";
 import Link from "next/link";
 import { Skeleton } from "@nextui-org/skeleton";
+import Toolbar from "./Toolbar";
 
 const IssuesLoading = () => {
   const fakeIssues = [1, 2, 3, 4, 5];
   return (
     <div>
-      <div className="pb-5">
-        <Link href="/issues/new">
-          <Button>Create new issue</Button>
-        </Link>
-      </div>
+      <Toolbar/>
 
       <Table.Root variant="surface">
         <Table.Header>
