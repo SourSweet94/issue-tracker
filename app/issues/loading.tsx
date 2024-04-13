@@ -1,6 +1,5 @@
-import { Button, Table } from "@radix-ui/themes";
-import Link from "next/link";
 import { Skeleton } from "@nextui-org/skeleton";
+import { Table } from "@radix-ui/themes";
 import Toolbar from "./Toolbar";
 
 const IssuesLoading = () => {

@@ -1,6 +1,5 @@
 import StatusBadge from "@/app/components/StatusBadge";
 import prisma from "@/prisma/client";
-
 import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
@@ -10,6 +9,7 @@ interface IssueDetailProps {
 }
 
 const IssueDetailPage = async ({ params: { issueId } }: IssueDetailProps) => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   const issue = await prisma.issue.findUnique({
     where: { id: parseInt(issueId) },
   });
@@ -19,7 +19,7 @@ const IssueDetailPage = async ({ params: { issueId } }: IssueDetailProps) => {
   }
 
   return (
-    <div>
+    <div className="max-w-xl">
       <Heading>{issue.title}</Heading>
       <Flex gap="5" className="my-3 justify-items-center">
         <StatusBadge status={issue.status} />
