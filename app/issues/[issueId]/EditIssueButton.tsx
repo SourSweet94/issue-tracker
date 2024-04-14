@@ -9,12 +9,10 @@ interface EditIssueButtonProps {
 
 const EditIssueButton = ({ issueId }: EditIssueButtonProps) => {
   return (
-    <Link href={`/issues/${issueId}/edit`}>
-      <Button>
-        <FaPencilAlt />
-        Edit issue
-      </Button>
-    </Link>
+    <Button>
+      <FaPencilAlt />
+      <Link href={`/issues/${issueId}/edit`}>Edit issue</Link>
+    </Button>
   );
 };
 
