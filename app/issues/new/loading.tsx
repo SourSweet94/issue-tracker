@@ -1,7 +1,8 @@
 import React from "react";
+import LoadingIssueForm from "../_components/LoadingIssueForm";
 
 const NewIssueLoading = () => {
-  return <div>NewIssueLoading...</div>;
+  return <LoadingIssueForm />;
 };
 
 export default NewIssueLoading;

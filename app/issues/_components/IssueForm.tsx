@@ -12,10 +12,8 @@ import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
 import { Issue } from "@prisma/client";
-import dynamic from "next/dynamic";
-const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false,
-});
+import SimpleMdeReact from "react-simplemde-editor";
+
 
 interface IssueFormProps {
   issue?: Issue;
@@ -45,7 +43,11 @@ const IssueForm = ({ issue }: IssueFormProps) => {
         onSubmit={handleSubmit(async (data) => {
           try {
             SetLoading(true);
-            await axios.post("/api/issues", data);
+            if (issue) {
+              await axios.patch(`/api/issues/${issue.id}`, data);
+            } else {
+              await axios.post("/api/issues", data);
+            }
             router.push("/issues");
             router.refresh();
           } catch (error) {
@@ -73,8 +75,8 @@ const IssueForm = ({ issue }: IssueFormProps) => {
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
-        <Button>
-          {loading ? "Submitting" : "Submit new issue"} {loading && <Spinner />}
+        <Button disabled={loading}>
+          {issue ? "Update issue" : "Submit new issue"} {loading && <Spinner />}
         </Button>
       </form>
       {error && (
