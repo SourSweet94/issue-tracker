@@ -1,7 +1,7 @@
 import prisma from "@/prisma/client";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
-import LoadingIssueForm from "../../_components/LoadingIssueForm";
+import LoadingIssueForm from "@/app/issues/_components/LoadingIssueForm";
 const IssueForm = dynamic(() => import("@/app/issues/_components/IssueForm"), {
   ssr: false,
   loading: () => <LoadingIssueForm />,
