@@ -1,5 +1,5 @@
 import React from "react";
-import LoadingIssueForm from "../../_components/LoadingIssueForm";
+import LoadingIssueForm from "@/app/issues/_components/LoadingIssueForm"
 
 const EditIssueLoading = () => {
   return <LoadingIssueForm />;
