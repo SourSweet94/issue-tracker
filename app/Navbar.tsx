@@ -13,6 +13,7 @@ import {
   Flex,
   Text,
 } from "@radix-ui/themes";
+import { Skeleton } from "@nextui-org/react";
 
 const Navbar = () => {
   return (
@@ -66,7 +67,8 @@ const NavLinks = () => {
 const AuthStatus = () => {
   const { status, data } = useSession();
 
-  if (status === "loading") return null;
+  if (status === "loading")
+    return <Skeleton className="w-8 rounded-full"></Skeleton>;
 
   if (status === "unauthenticated")
     return (
