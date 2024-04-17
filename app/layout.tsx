@@ -7,6 +7,7 @@ import { Providers } from "./Provider";
 
 import "./globals.css";
 import AuthProvider from "./auth/AuthProvider";
+import QueryClientProvider from "@/QueryClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,16 +24,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          <Providers>
-            <Theme accentColor="violet" radius="none">
-              <Navbar />
-              <main className="p-5">
-                <Container>{children}</Container>
-              </main>
-            </Theme>
-          </Providers>
-        </AuthProvider>
+        <QueryClientProvider>
+          <AuthProvider>
+            <Providers>
+              <Theme accentColor="violet" radius="none">
+                <Navbar />
+                <main className="p-5">
+                  <Container>{children}</Container>
+                </main>
+              </Theme>
+            </Providers>
+          </AuthProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );
