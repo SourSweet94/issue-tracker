@@ -8,8 +8,8 @@ export const PATCH = async (
   req: NextRequest,
   { params: { issueId } }: { params: { issueId: string } }
 ) => {
-  // const session = await getServerSession(authOptions);
-  // if (!session) return NextResponse.json({}, { status: 401 });
+  const session = await getServerSession(authOptions);
+  if (!session) return NextResponse.json({}, { status: 401 });
 
   const body = await req.json();
   const validation = patchIssueSchema.safeParse(body);
